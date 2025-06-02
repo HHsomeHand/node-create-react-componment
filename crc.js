@@ -29,8 +29,8 @@ const componentDir = path.join(cwd, componentName);
 const relativePath = path.relative(srcPath, path.join(cwd, componentName)).replace(/\\/g, '/');
 
 // 模板内容
-const indexTemplate = 
-`// src/${relativePath}/index.js
+const indexTemplate =
+`// src/${relativePath}/index.jsx
 
 import React from 'react';
 import {memo} from "react";
@@ -48,7 +48,7 @@ export const ${componentName} = memo((props) => {
 export default ${componentName};
 `;
 
-const styleTemplate = 
+const styleTemplate =
 `// src/${relativePath}/style.js
 
 import styled from "styled-components";
@@ -66,7 +66,7 @@ if (!fs.existsSync(componentDir)) {
     fs.mkdirSync(componentDir);
 }
 
-fs.writeFileSync(path.join(componentDir, 'index.js'), indexTemplate);
+fs.writeFileSync(path.join(componentDir, 'index.jsx'), indexTemplate);
 fs.writeFileSync(path.join(componentDir, 'style.js'), styleTemplate);
 
 console.log(`✅ 组件 ${componentName} 已创建在 ${componentDir}`);
