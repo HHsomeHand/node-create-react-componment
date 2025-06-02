@@ -6,10 +6,17 @@ const path = require('path');
 // 获取组件名
 const args = process.argv.slice(2);
 if (args.length < 1) {
-    console.error('❌ 请提供组件名，例如: crc AppHeader');
+    console.error('❌ 请提供组件名，例如: crc AppHeader app-header');
     process.exit(1);
 }
+
 const componentName = args[0];
+
+
+if (!args[1]) {
+    console.warn("❌ 第二个参数, 请提供组件的 BEM 类名，例如: crc AppHeader app-header")
+}
+const bemName = args[1] || "CLASSNAME";
 
 // 当前路径
 const cwd = process.cwd();
@@ -38,7 +45,7 @@ import {${componentName}Wrapper} from "./style.js";
 
 export const ${componentName} = memo((props) => {
     return (
-        <${componentName}Wrapper className="${componentName}">
+        <${componentName}Wrapper className="${bemName}">
 
         </${componentName}Wrapper>
     );
@@ -52,7 +59,7 @@ const styleTemplate =
 
 import styled from "styled-components";
 
-// TODO: 添加类名
+// .${bemName}
 export const ${componentName}Wrapper = styled.div\`
     
 \`
