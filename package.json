@@ -1,0 +1,7 @@
+{
+  "name": "crc-tool",
+  "version": "1.0.0",
+  "bin": {
+    "crc": "crc.js"
+  }
+}
