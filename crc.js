@@ -38,8 +38,7 @@ import {${componentName}Wrapper} from "./style.js";
 
 export const ${componentName} = memo((props) => {
     return (
-        // TODO: 添加类名
-        <${componentName}Wrapper>
+        <${componentName}Wrapper className="${componentName}">
 
         </${componentName}Wrapper>
     );
