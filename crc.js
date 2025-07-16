@@ -22,6 +22,8 @@ function getBemName() {
             return cpnName
                 .replace(/([A-Z])/g, '-$1')
                 .toLowerCase()
+                // 去除首部的 -
+                .replace(/^-/, '');
         }
 
         bemName = cpnNameToBem(componentName);
@@ -51,15 +53,24 @@ const relativePath = path.relative(srcPath, path.join(cwd, componentName)).repla
 
 // 模板内容
 const indexTemplate =
-`// src/${relativePath}/index.jsx
+`// src/${relativePath}/index.tsx
 
 import React from 'react';
 import {memo} from "react";
-import {${componentName}Wrapper} from "./style.js";
+import {${componentName}Wrapper} from "./style.ts";
+import {clsx} from "clsx";
 
-export const ${componentName} = memo((props) => {
+interface ${componentName}Props {
+    className?: string,
+}
+
+export const ${componentName} = memo((
+    props:  ${componentName}Props
+) => {
     return (
-        <${componentName}Wrapper className="${bemName}">
+        <${componentName}Wrapper
+            className={clsx("user-select-dialog", props.className)}
+        >
 
         </${componentName}Wrapper>
     );
@@ -69,7 +80,7 @@ export default ${componentName};
 `;
 
 const styleTemplate =
-`// src/${relativePath}/style.js
+`// src/${relativePath}/style.ts
 
 import styled from "styled-components";
 
@@ -86,8 +97,8 @@ if (!fs.existsSync(componentDir)) {
     fs.mkdirSync(componentDir);
 }
 
-fs.writeFileSync(path.join(componentDir, 'index.jsx'), indexTemplate);
-fs.writeFileSync(path.join(componentDir, 'style.js'), styleTemplate);
+fs.writeFileSync(path.join(componentDir, 'index.tsx'), indexTemplate);
+fs.writeFileSync(path.join(componentDir, 'style.ts'), styleTemplate);
 
 console.log(`✅ 组件 ${componentName} 已创建在 ${componentDir}`);
 
