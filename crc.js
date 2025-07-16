@@ -12,11 +12,25 @@ if (args.length < 1) {
 
 const componentName = args[0];
 
+function getBemName() {
+    let bemName = args[1];
 
-if (!args[1]) {
-    console.warn("❌ 第二个参数, 请提供组件的 BEM 类名，例如: crc AppHeader app-header")
+    if (!bemName) {
+        console.warn("[warning] 第二个参数, 请提供组件的 BEM 类名，例如: crc AppHeader app-header, 这里默认讲组件名拆分为 BEM 类名")
+
+        function cpnNameToBem(cpnName) {
+            return cpnName
+                .replace(/([A-Z])/g, '-$1')
+                .toLowerCase()
+        }
+
+        bemName = cpnNameToBem(componentName);
+    }
+
+    return bemName;
 }
-const bemName = args[1] || "CLASSNAME";
+
+const bemName = getBemName();
 
 // 当前路径
 const cwd = process.cwd();
