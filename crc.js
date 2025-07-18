@@ -69,7 +69,8 @@ export const ${componentName} = memo((
 ) => {
     return (
         <${componentName}Wrapper
-            className={clsx("user-select-dialog", props.className)}
+            className={clsx("", props.className)}
+            data-slot="${componentName}"
         >
 
         </${componentName}Wrapper>
